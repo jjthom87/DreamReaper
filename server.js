@@ -75,18 +75,26 @@ app.set('view engine', 'handlebars');
 // app.use(passport.initialize());
 // app.use(passport.session());
 
+// app.get('/', function(req,res){
+// 	if (req.user){
+// 	console.log(req.user);
+// 	console.log(req.user.email);
+// 	res.render('home', { name: req.user.username});
+//     } else {
+//     res.redirect('/users');
+// 	}
+// });
+
 app.get('/', function(req,res){
-	if (req.user){
-	console.log(req.user);
-	console.log(req.user.email);
-	res.render('home', { name: req.user.username});
-    } else {
-    res.redirect('/users');
-	}
-});
+	res.render('mainpage');
+})
 
 app.get('/users', function(req,res){
 	res.render('create');
+});
+
+app.get('/users/login', function(req,res){
+	res.render('login');
 });
 
 // // app.post('/login', passport.authenticate('local', { 
@@ -100,8 +108,27 @@ app.post('/users', function(req,res){
 		// res.render('home', { name: user.username});
 	}, function(e) {
 		res.status(400).json(e);
+	});
+});
+
+app.post('/users/login', function(req,res) {
+	var body = _.pick(req.body, 'email', 'password');
+	if(typeof body.email !== 'string' || typeof body.password !== "string") {
+		return res.status(400).send();
+	}
+	db.user.findOne({
+		where: {
+			email: body.email
+		}
+	}).then(function(user){ 
+		if (!user){
+			return res.status(401).send();
+		}
+		res.json(user.toJSON);
+	}, function(e){
+		res.status(500).send();
 	})
-})
+});
 
 db.sequelize.sync().then(function(){
 	app.listen(PORT, function(){
