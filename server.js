@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 // var cookieParser = require('cookie-parser');
 var exphbs = require('express-handlebars');
 var _ = require('underscore');
-// var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcryptjs');
 // var passport = require('passport');
 // var session = require('express-session');
 // var SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -101,13 +101,15 @@ app.get('/users/login', function(req,res){
 // 	successRedirect: '/', 
 // 	failureRedirect: '/login'}));
 
-app.post('/users', function(req,res){
+app.post('/users', function(req,res){ 
 	var body = _.pick(req.body,'username','email', 'password');
 	db.user.create(body).then(function(user){
-		res.json(user.toPublicJSON());
-		// res.render('home', { name: user.username});
+		// res.json(user.toPublicJSON());
+		res.redirect('/users/login');
 	}, function(e) {
-		res.status(400).json(e);
+		res.redirect('/users');
+		// res.render('create', "Username is taken")
+		// res.status(400).json(e);
 	});
 });
 
@@ -121,10 +123,12 @@ app.post('/users/login', function(req,res) {
 			email: body.email
 		}
 	}).then(function(user){ 
-		if (!user){
+		if (!user || !bcrypt.compareSync(body.password, user.get('password_hash'))){
+			res.redirect('/users/login');
 			return res.status(401).send();
 		}
-		res.json(user.toJSON);
+		res.render('home', { name: user.username});
+		// res.json(user.toPublicJSON);
 	}, function(e){
 		res.status(500).send();
 	})
