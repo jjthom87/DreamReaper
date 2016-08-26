@@ -30,6 +30,7 @@ Object.keys(db).forEach(function(modelName) {
   }
 });
 
+db.user = sequelize.import(__dirname + '/user.js');
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
