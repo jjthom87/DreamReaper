@@ -115,6 +115,15 @@ app.post('/users', function(req,res){
 
 app.post('/users/login', function(req,res) {
 	var body = _.pick(req.body, 'email', 'password');
+
+	// db.user.authenticate(body).then(function(){
+	// 	// res.render('home', { name: user.username});
+	// 	console.log(body);
+	// 	res.json(user.toPublicJSON());
+	// }, function(){
+	// 	// res.redirect('/users/login');
+	// 	res.status(401).send();
+	// });
 	if(typeof body.email !== 'string' || typeof body.password !== "string") {
 		return res.status(400).send();
 	}
@@ -127,8 +136,8 @@ app.post('/users/login', function(req,res) {
 			res.redirect('/users/login');
 			return res.status(401).send();
 		}
-		res.render('home', { name: user.username});
-		// res.json(user.toPublicJSON);
+		res.header('Auth', user.generateToken('authentication')).render('home', { name: user.username});
+		// res.header('Auth', user.generateToken('authentication')).json(user.toPublicJSON);
 	}, function(e){
 		res.status(500).send();
 	})
