@@ -7,11 +7,23 @@ var basename  = path.basename(module.filename);
 var env       = process.env.NODE_ENV || 'development';
 var config    = require(__dirname + '/../config/config.json')[env];
 var db        = {};
+var sequelize;
+
+if (env === 'production') {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres'
+  });
+} else {
+  sequelize = new Sequelize(undefined, undefined, undefined, {
+    'dialect': 'sqlite',
+    'storage': __dirname + '/data/dev-todo-api.sqlite'
+  });
+}
 
 if (config.use_env_variable) {
-  var sequelize = new Sequelize(process.env[config.use_env_variable]);
+  sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
-  var sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs
@@ -31,7 +43,12 @@ Object.keys(db).forEach(function(modelName) {
 });
 
 db.user = sequelize.import(__dirname + '/user.js');
+db.dream = sequelize.import(__dirname + '/dream.js');
+db.token = sequelize.import(__dirname + '/token.js');
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+db.dream.belongsTo(db.user);
+db.user.hasMany(db.dream);
 
 module.exports = db;

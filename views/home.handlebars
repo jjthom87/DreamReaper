@@ -1,1 +1,14 @@
-<h1>You are home {{name}}!</h1>
+<h1>Welcome {{name}}!</h1>
+<h2>Record your dreams here</h2>
+
+<form action="/dreams" method="post">
+  <input type="text" name="dream"/>
+  <br>
+  <input type="submit" value="Submit Dream"/>
+</form>
+
+<div id = "record">
+	{{#each dream}}
+		<p>{{this.id}}. {{this.description}}</p>
+	{{/each}}
+</div>
