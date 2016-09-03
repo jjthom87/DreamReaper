@@ -39,9 +39,9 @@ var mysql = require('mysql');
 var connection;
 
 if (process.env.JAWSDB_URL){
-	connection = newSequelize(process.env.JAWSDB_URL);
+	connection = new Sequelize(process.env.JAWSDB_URL);
 } else {
-	connection = newSequelize({
+	connection = new Sequelize({
 		host: 'localhost',
 		user: 'root',
 		password: '',
