@@ -1,8 +1,26 @@
-var sequelize = require('sequelize');
+var models = require('../models');
+models.sequelize.sync();
 
-var User = require('../models').user;
-var Dream = require('../models').dream;
+var user = require('../models').user;
+var dream = require('../models').dream;
 
-module.exports = {
-	selectAll:
-}
+var userExperience = {
+	UserProfile: function(id, cb){
+		user.findOne({ where {id: id}}).then(function(success){
+			cb(success);
+		})
+	},
+	AddDreams: function(dream, id, logger, cb){
+		user.findOne({ where {id: id}}).then(function(){
+			dream.create({
+				description: dream
+			}).then(function(dream){
+				logger.addDream(dream).then(function(success){
+					cb(success);
+				})
+			})
+		})
+	}
+};
+
+module.exports['controllers'] = userExperience;

@@ -1,14 +1,72 @@
-<h1>Welcome {{name}}!</h1>
-<h2>Record your dreams here</h2>
+<div id = "homePage">
+	<h1>Welcome to DreamReaper, where all your fantasies are stored</h1>
+	<h2>Please Login or Create an account</h2>
+	<button type = "button" id="create">Create An Account</button>
+</div>
 
-<form action="/dreams" method="post">
-  <input type="text" name="dream"/>
-  <br>
-  <input type="submit" value="Submit Dream"/>
-</form>
+<div id="createUser">
+	<form action="/users" method="post">
+	  <h1>Hello Dreamers!</h1>
+	  <h2>Create Your Account Here</h2>
+	    <div>
+	      <label>Unique UserName</label>
+	      <br>
+	      <input type="text" name="username"/>
+	  </div>
+	  <div>
+	      <label>Email</label>
+	      <br>
+	      <input type="text" name="email"/>
+	  </div>
+	  <div>
+	      <label>Password</label>
+	      <br>
+	      <input type="password" name="password"/>
+	  </div>
+	  <div>
+	      <input type="submit" value="Create Account"/>
+	  </div>
+	</form>
+	<div class="error"></div>
+	<br>
+	<h9>If you are re-directed back to this page, that means the email is already in our system, or your username/password credentials are incorrect.</h9>
+</div>
 
-<div id = "record">
-	{{#each dream}}
-		<p>{{this.id}}. {{this.description}}</p>
-	{{/each}}
+<div id = "loginUser">
+	<form action="/users/login" method="post">
+	  <h1>Hello Dreamers!</h1>
+	  <h2>Login to Your Account Here</h2>
+	  <div>
+	      <label>Email</label>
+	      <br>
+	      <input id="email" type="text" name="email"/>
+	  </div>
+	  <div>
+	      <label>Password</label>
+	      <br>
+	      <input id="password" type="password" name="password"/>
+	  </div>
+	  <div>
+	      <input type="submit" value="Log In"/>
+	  </div>
+	</form>
+	<br>
+	<h9>If you are re-directed back to the login page, then that means your credentials are incorrect</h9>
+</div>
+
+<div id="userHome">
+	<h1>Welcome {{data.name}}!</h1>
+	<h2>Record your dreams here</h2>
+
+	<form action="/dreams" method="post">
+	  <input type="text" name="dream"/>
+	  <br>
+	  <input type="submit" value="Submit Dream"/>
+	</form>
+
+	<div id = "record">
+		{{#each data.dream}}
+			<p>{{this.id}}. {{this.description}}</p>
+		{{/each}}
+	</div>
 </div>

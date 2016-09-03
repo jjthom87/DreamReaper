@@ -1,20 +1,15 @@
-$(document).ready(function() {
-		
-	$('#submitLogin').on('submit', function(){
-		$.ajax({
-			type: "POST",
-			url: "/users/login",
-			dataType: "json",
-			data: {
-				email: $('#email').val(),
-				password: $('#password').val()
-			},
-			success: function(data){
-				if(data === 'Correct'){
-					window.location.href = '/homepage';
-				}
-			}
-		});
+$(document).ready(function(){
+	$('#homePage').show();
+	$('#loginUser').show();
+	$('#createUser').hide();
+	$('#userHome').hide();
+
+	$('#create').on('click', function(){
+		$('#homePage').hide();
+		$('#loginUser').hide();
+		$('#userHome').hide();
+		$('#createUser').show();
 	});
-	return false;
+
+	
 });
