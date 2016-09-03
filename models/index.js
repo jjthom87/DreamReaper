@@ -9,16 +9,16 @@ var config    = require(__dirname + '/../config/config.json')[env];
 var db        = {};
 var sequelize;
 
-if (env === 'production') {
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'postgres'
-  });
-} else {
-  sequelize = new Sequelize(undefined, undefined, undefined, {
-    'dialect': 'sqlite',
-    'storage': __dirname + '/data/dev-todo-api.sqlite'
-  });
-}
+// if (env === 'production') {
+//   sequelize = new Sequelize(process.env.DATABASE_URL, {
+//     dialect: 'postgres'
+//   });
+// } else {
+//   sequelize = new Sequelize(undefined, undefined, undefined, {
+//     'dialect': 'sqlite',
+//     'storage': __dirname + '/data/dev-todo-api.sqlite'
+//   });
+// }
 
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable]);
