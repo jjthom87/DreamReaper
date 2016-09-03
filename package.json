@@ -7,8 +7,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjthom87/DreamReaper.git"
+  },
+  "author": "Jared Thomas",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrizza88/DreamReaper"
+  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.3.0",
