@@ -33,20 +33,20 @@
 
 // module.exports = sequelize;
 
-var Sequelize = require("sequelize");
-var mysql = require('mysql');
+// var Sequelize = require("sequelize");
+// var mysql = require('mysql');
 
-var connection;
+// var connection;
 
-if (process.env.JAWSDB_URL){
-	connection = new Sequelize(process.env.JAWSDB_URL);
-} else {
-	connection = new Sequelize({
-		host: 'localhost',
-		user: 'root',
-		password: '',
-		database: 'dreamuser2'
-	})
-}
+// if (process.env.JAWSDB_URL){
+// 	connection = new Sequelize(process.env.JAWSDB_URL);
+// } else {
+// 	connection = new Sequelize({
+// 		host: 'localhost',
+// 		user: 'root',
+// 		password: '',
+// 		database: 'dreamuser2'
+// 	});
+// };
 
-module.exports = connection;
+// module.exports = connection;

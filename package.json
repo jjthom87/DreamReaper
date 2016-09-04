@@ -14,7 +14,7 @@
   "author": "Jared Thomas",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jrizza88/DreamReaper"
+    "url": "https://github.com/jrizza88/DreamReaper/issues"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
