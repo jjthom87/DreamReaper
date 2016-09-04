@@ -27,7 +27,7 @@ if (env === 'production') {
 // }
 
 if (process.env.JAWSDB_url) {
-  var sequelize = new Sequelize(process.env.JAWSDB_url);
+  var sequelize = new Sequelize(process.env.JAWSDB_URL);
 } else {
   var sequelize = new Sequelize('dreamuser2', 'root', null, {
     host: 'localhost',
